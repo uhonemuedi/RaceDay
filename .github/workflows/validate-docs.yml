@@ -1,0 +1,29 @@
+name: Validate Docs Structure
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check /docs folder exists
+        run: |
+          if [ ! -d "docs" ]; then
+            echo "ERROR: /docs folder is missing"
+            exit 1
+          fi
+          echo "docs folder found"
+
+      - name: Check required Part 1 files exist
+        run: |
+          test -f docs/ERD.png || test -f docs/ERD.pdf || (echo "ERROR: ERD file missing in /docs" && exit 1)
+          test -f docs/API-Endpoint-Plan.md || test -f docs/API-Endpoint-Plan.docx || test -f docs/API-Endpoint-Plan.pdf || (echo "ERROR: API Endpoint Plan missing in /docs" && exit 1)
+          test -f docs/RaceDay-Schema.sql || (echo "ERROR: SQL script missing in /docs" && exit 1)
+          echo "All required Part 1 files found"
