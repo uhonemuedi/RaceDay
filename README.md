@@ -32,7 +32,7 @@ A GitHub Actions workflow (.github/workflows/validate-docs.yml) automatically va
 
 Successful build screenshot:
 
-
+   ![CI/CD Success](docs/CI-CD-Success.png)
 
 
 Video Presentation
