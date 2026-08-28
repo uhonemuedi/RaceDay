@@ -1,0 +1,17 @@
+# Visual Studio / .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+
+# Environment and secrets
+appsettings.Development.json
+*.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docker
+*.log
