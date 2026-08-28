@@ -8,6 +8,12 @@ Part 1: System planning — ERD, API endpoint plan, and SQL database script.
 Part 2: RESTful API built in C#, connected to the database, with unit tests and CI/CD.
 Part 3: MVC web application consuming the API, with Azure Blob Storage and Docker containerisation.
 User Roles
+## Technologies Used
+
+- **Database:** Microsoft SQL Server / SQL Server Management Studio (SSMS)
+- **Version Control:** Git and GitHub
+- **CI/CD:** GitHub Actions
+- **Planning Tools:** Graphviz (ERD), Markdown/Word (API documentation)
 
 The system supports two distinct user roles:
 
