@@ -45,7 +45,7 @@ Video Presentation
 
 An unlisted YouTube video walking through the planning documents, ERD decisions, endpoint plan choices, and a live run of the SQL script in SSMS:
 
-Video link: [Insert unlisted YouTube link here]
+Video link: https://youtu.be/oy5eAzQfl5s
 
 AI Disclosure
 
