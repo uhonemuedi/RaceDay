@@ -31,7 +31,7 @@ Clone this repository:
    git clone https://github.com/uhonemuedi/RaceDay.git
 Open SQL Server Management Studio (SSMS).
 Open docs/RaceDay-Schema.sql.
-Execute the script against your local SQL Server instance — this creates the RaceDayDB database, all tables, and seeds sample data.
+Execute the script against your local SQL Server instance  this creates the RaceDayDB database, all tables, and seeds sample data.
 CI/CD
 
 A GitHub Actions workflow (.github/workflows/validate-docs.yml) automatically validates that the /docs folder contains all required Part 1 files on every push to main.
