@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# SQL Server Management Studio Version 22
+VisualStudioVersion = 18.8.12023.21 stable
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaceDay.Api", "RaceDay.Api.csproj", "{EA4512C0-6FD4-434F-A443-71E62CD3A049}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EA4512C0-6FD4-434F-A443-71E62CD3A049}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA4512C0-6FD4-434F-A443-71E62CD3A049}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA4512C0-6FD4-434F-A443-71E62CD3A049}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA4512C0-6FD4-434F-A443-71E62CD3A049}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BB32B453-01DB-4C06-94F6-382E1B73AE41}
+	EndGlobalSection
+EndGlobal
