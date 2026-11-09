@@ -1,53 +1,68 @@
-RaceDay
+RaceDay (Part 3: MVC Web Application)
 
-RaceDay is a full-stack web-based event management system designed for the South African road running, walking, and cycling community. The platform allows Event Organisers to create and manage events, categories, and participant results, while Participants can browse upcoming events, enter events, and track their personal performance history.
+RaceDay is a web based event management system for South African road running, walking and cycling events. This branch (part3-mvc) holds the finished system:
 
-This repository contains the Portfolio of Evidence (POE) for PROG6212, submitted in three progressive parts:
+RaceDay.Api is the RESTful API from Part 2. It handles all data, sessions and role checks.
+RaceDay.Mvc is the ASP.NET Core MVC web application built in Part 3. It has no database access. Every action goes through the API.
+docs holds the Part 1 planning documents (ERD, endpoint plan and SQL script).
+User roles
 
-Part 1: System planning — ERD, API endpoint plan, and SQL database script.
-Part 2: RESTful API built in C#, connected to the database, with unit tests and CI/CD.
-Part 3: MVC web application consuming the API, with Azure Blob Storage and Docker containerisation.
-User Roles
-## Technologies Used
+Organiser
 
-- **Database:** Microsoft SQL Server / SQL Server Management Studio (SSMS)
-- **Version Control:** Git and GitHub
-- **CI/CD:** GitHub Actions
-- **Planning Tools:** Graphviz (ERD), Markdown/Word (API documentation)
+Sees a dashboard with their events, enrolments per event and upcoming dates
+Creates, edits and deletes events
+Adds distance or age categories to each event
+Views everyone enrolled in their events
+Captures finish times and positions after an event
 
-The system supports two distinct user roles:
+Participant
 
-Organiser — can create, edit, and delete events, manage event categories, capture participant results, and view all event enrolments.
-Participant — can create an account, browse events, enter an event by selecting a category, view their own enrolments, and track their personal results.
-Part 1 — Planning Deliverables
+Browses upcoming events and filters them by name and type
+Views full event details and available categories
+Enrols in an event by choosing a category
+Views their own enrolments with colour coded status
+Views their personal race history on the My Results page
+Views and updates their profile
 
-All Part 1 planning documents are located in the /docs folder:
+Each role gets its own navigation menu. Pages are protected, and a user cannot open pages that belong to the other role.
 
-ERD.png — Entity Relationship Diagram for the RaceDay database.
-API-Endpoint-Plan.docx — Full API endpoint plan covering Authentication, User Profile, Events, Categories, Enrolments, and Results.
-RaceDay-Schema.sql — SQL Server script to create and seed the RaceDay database.
-Setup Instructions
-Clone this repository:
-   git clone https://github.com/uhonemuedi/RaceDay.git
-Open SQL Server Management Studio (SSMS).
-Open docs/RaceDay-Schema.sql.
-Execute the script against your local SQL Server instance  this creates the RaceDayDB database, all tables, and seeds sample data.
+Run it locally
+Create the database by running docs/RaceDay-Schema.sql in SQL Server Management Studio.
+Open RaceDay.Api/appsettings.json and change the RaceDayDB connection string so it points at your own SQL Server instance.
+Open RaceDay.Mvc/RaceDay.Mvc.sln in Visual Studio.
+Right click the solution, choose Configure Startup Projects, pick Multiple startup projects and set both projects to Start.
+Press F5. The API runs on https://localhost:7108 (Swagger is at /swagger) and the MVC app runs on https://localhost:7194.
+Register a new Organiser and a new Participant on the Register page. The sample users in the SQL script cannot log in because their passwords are placeholders, not real hashes.
+Run it with Docker
+
+The MVC app has a Dockerfile in RaceDay.Mvc. The API must be running first (step 5 above).
+
+docker build -t raceday-mvc ./RaceDay.Mvc
+docker run --rm -p 8080:8080 -e ApiBaseUrl=https://host.docker.internal:7108/ -e TrustApiCertificate=true raceday-mvc
+
+Then open http://localhost:8080. TrustApiCertificate=true is for local development only. It lets the container accept the API's development certificate.
+
+Technologies
+ASP.NET Core 8 (MVC and Web API)
+Entity Framework Core with SQL Server
+Session based authentication with BCrypt password hashing
+Bootstrap 5
+Docker
+GitHub Actions
 CI/CD
 
-A GitHub Actions workflow (.github/workflows/validate-docs.yml) automatically validates that the /docs folder contains all required Part 1 files on every push to main.
+A GitHub Actions workflow builds the API, the MVC project and the Docker image on every push to this branch.
 
 Successful build screenshot:
 
-   ![CI/CD Success](docs/CI-CD-Success.png)
+[Insert the green build screenshot here]
 
+Video
 
-Video Presentation
+Unlisted YouTube video showing the running application, the MVC structure and the Docker setup:
 
-An unlisted YouTube video walking through the planning documents, ERD decisions, endpoint plan choices, and a live run of the SQL script in SSMS:
+Video link: [Insert the unlisted YouTube link here]
 
-Video link: https://youtu.be/SopORUYBbDE
+AI disclosure
 
-AI Disclosure
-
-AI tools (Claude) were used to assist with planning structure, drafting documentation, and troubleshooting GitHub/SSMS setup issues during this project. All design decisions and final work were reviewed and understood by the author.
-
+AI tools (Claude) were used to help plan the structure, draft code and troubleshoot setup problems. I reviewed and tested the code, and I can explain how it works.
