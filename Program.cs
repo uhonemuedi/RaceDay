@@ -1,14 +1,28 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// The API address can be changed without editing code (used by Docker)
+var apiBaseUrl = builder.Configuration["ApiBaseUrl"] ?? "https://localhost:7108/";
+var trustApiCertificate = builder.Configuration.GetValue<bool>("TrustApiCertificate");
+
 builder.Services.AddHttpClient("RaceDayApi", client =>
 {
-    client.BaseAddress = new Uri("https://localhost:7108/");
+    client.BaseAddress = new Uri(apiBaseUrl);
 })
-.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+.ConfigurePrimaryHttpMessageHandler(() =>
 {
-    UseCookies = false // we forward the cookie ourselves, per user
+    var handler = new HttpClientHandler
+    {
+        UseCookies = false // we forward the cookie ourselves, per user
+    };
+
+    // Development only: accept the API's local development certificate
+    if (trustApiCertificate)
+        handler.ServerCertificateCustomValidationCallback =
+            HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+
+    return handler;
 });
 
 builder.Services.AddDistributedMemoryCache();
@@ -24,20 +38,19 @@ builder.Services.AddScoped<RaceDay.Mvc.Services.ApiService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+}
+else
+{
+    app.UseHttpsRedirection();
 }
 
-app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-app.UseSession();
 
+app.UseSession();
 app.UseAuthorization();
 
 app.MapControllerRoute(
